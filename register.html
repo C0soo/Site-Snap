@@ -8,13 +8,16 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="">
-  <title>Login - Marvel Snap List</title>
+  <title>Registrazione - Marvel Snap List</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
   <link href="css/font-awesome.min.css" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
   <link href="css/responsive.css" rel="stylesheet" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body class="sub_page">
   <div class="hero_area">
@@ -54,7 +57,7 @@
                 <a class="nav-link" href="team.html">Team</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="login.html"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                <a class="nav-link" href="register.html"> <i class="fa fa-user" aria-hidden="true"></i> Registrati</a>
               </li>
               <form class="form-inline">
                 <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
@@ -68,34 +71,106 @@
     </header>
     <!-- end header section -->
 
-    <!-- login form section -->
-    <section class="login_section layout_padding">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6 mx-auto">
-              <div class="login_form_container">
-                <h2>Login</h2>
-                <form action="login.php" method="POST">
-                  <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome" class="form-control" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                  </div>
-                  <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-                <div class="not_registered">
-                  <p>Non hai un account? <a href="register.html">Registrati</a></p>
-                </div>
+  <!-- registration form section -->
+  <section class="login_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="login_form_container">
+            <h2>Registrazione</h2>
+            <form id="registrationForm" action="register.php" method="POST">
+              <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" class="form-control" required>
               </div>
+              <div class="form-group">
+                <label for="cognome">Cognome:</label>
+                <input type="text" id="cognome" name="cognome" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="telefono">Numero di Telefono:</label>
+                <input type="text" id="telefono" name="telefono" class="form-control" required>
+              </div>
+              <div class="form-group password-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+                <span class="eye-icon" onclick="togglePasswordVisibility('password')"><i class="fa fa-eye"></i></span>
+              </div>
+              <div class="form-group password-container">
+                <label for="repeat_password">Ripeti Password:</label>
+                <input type="password" id="repeat_password" name="repeat_password" class="form-control" required>
+                <span class="eye-icon" onclick="togglePasswordVisibility('repeat_password')"><i class="fa fa-eye"></i></span>
+              </div>
+              <button type="submit" class="btn btn-primary">Registrati</button>
+            </form>
+            <div class="not_registered">
+              <p>Hai già un account? <a href="login.html">Login</a></p>
             </div>
           </div>
         </div>
-      </section>
-      <!-- end login form section -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Aggiungi questo div per visualizzare il popup di avviso -->
+  <div id="passwordMismatchPopup" class="password-mismatch-popup" style="display: none;">
+    Le password non corrispondono. Per favore, controlla e riprova.
   </div>
+
+  <script>
+    function togglePasswordVisibility(id) {
+      var passwordField = document.getElementById(id);
+      var eyeIcon = passwordField.nextElementSibling.querySelector('i');
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordField.type = "password";
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    }
+
+    // Aggiungi questa funzione per verificare la corrispondenza delle password
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+      var password = document.getElementById("password").value;
+      var repeatPassword = document.getElementById("repeat_password").value;
+      if (password !== repeatPassword) {
+        // Se le password non corrispondono, mostra il popup di avviso
+        document.getElementById("passwordMismatchPopup").style.display = "block";
+        // Impedisci l'invio del modulo
+        event.preventDefault();
+      } else {
+        // Se le password corrispondono, nascondi il popup di avviso se è visualizzato
+        document.getElementById("passwordMismatchPopup").style.display = "none";
+      }
+    });
+  </script>
+
+<style>
+    .password-container {
+      position: relative;
+    }
+    .password-container input[type="password"],
+    .password-container input[type="text"] {
+      width: 100%;
+      padding-right: 30px; /* Space for the eye icon */
+    }
+    .password-container .eye-icon {
+      position: absolute;
+      right: 10px;
+      top: 75%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: black;
+    }
+  </style>
+
 
 <!-- info section -->
 
@@ -221,7 +296,6 @@
 </script>
 <!-- End Google Map -->
 
-
 <script>
   $(document).ready(function(){
     var currentIndex = 0; // Indice iniziale
@@ -238,9 +312,7 @@
     // Imposta un intervallo per ciclare le immagini ogni 5 secondi
     setInterval(cycleImages, 5000);
   });
-  </script>
+</script>
   
-
 </body>
-
 </html>

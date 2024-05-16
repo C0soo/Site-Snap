@@ -13,7 +13,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="images/favicon.png" type="">
 
-  <title> MARVEL SNAP LIST </title>
+  <title> VARIANT SHOP </title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -50,7 +50,7 @@
         <nav class="navbar navbar-expand-lg custom_nav-container ">
           <a class="navbar-brand" href="index.html">
             <span>
-              Finexo
+              <img src="images/logo.png" alt="Snap" width="130" height="60">
             </span>
           </a>
 
@@ -168,9 +168,9 @@
 
   <!-- end why section -->
 
- <!-- info section -->
+<!-- info section -->
 
- <section class="info_section layout_padding2">
+<section class="info_section layout_padding2">
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-lg-3 info_col">
@@ -234,7 +234,7 @@
               Home
             </a>
             <a class="" href="deck.html">
-              Deck builder
+              Deck Builder
             </a>
             <a class="" href="cards.html">
               Card List
@@ -244,9 +244,6 @@
             </a>
             <a class="" href="team.html">
               Team
-            </a>
-            <a class="" href="team.html">
-              Login
             </a>
           </div>
         </div>
@@ -278,6 +275,8 @@
 
 <!-- jQery -->
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!-- popper js -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
 </script>
@@ -292,6 +291,26 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
 </script>
 <!-- End Google Map -->
+
+
+<script>
+  $(document).ready(function(){
+    var currentIndex = 0; // Indice iniziale
+    var images = ['images/slider-img.png', 'images/slider-img1.png', 'images/slider-img2.png'];
+    var numImages = images.length; // Numero totale di immagini
+  
+    function cycleImages() {
+      currentIndex = (currentIndex + 1) % numImages; // Aggiorna l'indice per ciclare le immagini
+      // Aggiorna l'immagine e l'indicatore attivo
+      $('.carousel-item').removeClass('active').eq(currentIndex).addClass('active');
+      $('.carousel-indicators li').removeClass('active').eq(currentIndex).addClass('active');
+    }
+  
+    // Imposta un intervallo per ciclare le immagini ogni 5 secondi
+    setInterval(cycleImages, 5000);
+  });
+  </script>
+  
 
 </body>
 
