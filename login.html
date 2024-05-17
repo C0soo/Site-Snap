@@ -221,26 +221,6 @@
 </script>
 <!-- End Google Map -->
 
-
-<script>
-  $(document).ready(function(){
-    var currentIndex = 0; // Indice iniziale
-    var images = ['images/slider-img.png', 'images/slider-img1.png', 'images/slider-img2.png'];
-    var numImages = images.length; // Numero totale di immagini
-  
-    function cycleImages() {
-      currentIndex = (currentIndex + 1) % numImages; // Aggiorna l'indice per ciclare le immagini
-      // Aggiorna l'immagine e l'indicatore attivo
-      $('.carousel-item').removeClass('active').eq(currentIndex).addClass('active');
-      $('.carousel-indicators li').removeClass('active').eq(currentIndex).addClass('active');
-    }
-  
-    // Imposta un intervallo per ciclare le immagini ogni 5 secondi
-    setInterval(cycleImages, 5000);
-  });
-  </script>
-  
-
 </body>
 
 </html>
