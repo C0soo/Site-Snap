@@ -1100,5 +1100,17 @@ a:focus {
   transform: translateY(0);
 }
 
+.product_box {
+  text-align: center;
+}
+
+.product_box img {
+  margin-bottom: 10px;
+}
+
+.product_box h3, .product_box p {
+  margin: 5px 0;
+}
+
 
 /*# NUOVO */
