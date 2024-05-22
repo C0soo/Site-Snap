@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         // Login riuscito
         $_SESSION['nome'] = $nome;
-        header("Location: benvenuto.html");
+        header("Location: benvenuto.php");
     } else {
         // Login fallito
         header("Location: login.html");
