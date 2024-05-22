@@ -56,9 +56,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="login.html"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
               </li>
-              <form class="form-inline">
-                
-              </form>
+              
             </ul>
           </div>
         </nav>
@@ -262,7 +260,7 @@
         </section>
     
         <!-- Cart section -->
-        <div class="cart" id="cart">
+        <div class="cart">
           <h2>Shopping Cart</h2>
           <ul id="cartItems"></ul>
           <p id="cartTotal">Total: $0.00</p>
@@ -270,183 +268,56 @@
         </div>
       </div>
     
+      <!-- jQuery -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <!-- Bootstrap JS -->
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+      <!-- Custom JS -->
       <script>
-        // Array per memorizzare i prodotti nel carrello
-        var cartItems = [];
+        var cart = [];
     
-        // Funzione per aggiungere un prodotto al carrello
         function addToCart(productName, price) {
-          // Aggiungi il prodotto al carrello
-          cartItems.push({ name: productName, price: price });
-    
-          // Aggiorna la visualizzazione del carrello
-          updateCartView();
-    
-          // Calcola e aggiorna il totale del carrello
-          updateCartTotal();
+          cart.push({ productName: productName, price: price });
+          updateCartUI();
         }
     
-        // Funzione per aggiornare la visualizzazione del carrello
-        function updateCartView() {
-          var cartElement = document.getElementById('cartItems');
-          cartElement.innerHTML = '';
-    
-          // Aggiungi gli elementi del carrello alla lista
-          cartItems.forEach(function(item) {
-            var li = document.createElement('li');
-            li.textContent = item.name + ' - $' + item.price.toFixed(2);
-            cartElement.appendChild(li);
-          });
-        }
-    
-        // Funzione per aggiornare il totale del carrello
-        function updateCartTotal() {
+        function updateCartUI() {
+          var cartItems = document.getElementById("cartItems");
+          cartItems.innerHTML = "";
           var total = 0;
-          // Calcola il totale sommando i prezzi dei prodotti nel carrello
-          cartItems.forEach(function(item) {
+    
+          cart.forEach(function(item) {
+            var li = document.createElement("li");
+            li.textContent = item.productName + " - $" + item.price.toFixed(2);
+            cartItems.appendChild(li);
             total += item.price;
           });
-          // Aggiorna il testo del totale del carrello
-          document.getElementById('cartTotal').textContent = 'Total: $' + total.toFixed(2);
+    
+          document.getElementById("cartTotal").textContent = "Total: $" + total.toFixed(2);
         }
     
-        // Funzione per completare l'acquisto
         function checkout() {
-          // Svuota il carrello
-          cartItems = [];
-          // Aggiorna la visualizzazione del carrello
-          updateCartView();
-          // Aggiorna il totale del carrello
-          updateCartTotal();
-          // Nascondi il carrello dopo il checkout
-          alert('Thank you for your purchase!');
+          // Perform the checkout process
+          $.ajax({
+            url: 'checkout.php',
+            type: 'POST',
+            data: { cart: cart },
+            success: function(response) {
+              // Handle the response from the server
+              var result = JSON.parse(response);
+              if (result.status === 'success') {
+                alert(result.message);
+                cart = [];
+                updateCartUI();
+              } else {
+                alert(result.message);
+              }
+            },
+            error: function() {
+              alert('Error during checkout. Please try again.');
+            }
+          });
         }
       </script>
-
-<!-- info section -->
-
-<section class="info_section layout_padding2">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-lg-3 info_col">
-        <div class="info_contact">
-          <h4>
-            Contatti
-          </h4>
-          <div class="contact_link_box">
-            <a href="https://www.google.com/maps/place/Istituto+di+Istruzione+Superiore+Antonio+Badoni/@45.807296,9.2588074,12z/data=!4m10!1m2!2m1!1sbadoni!3m6!1s0x47841d2daf12d41d:0x3f8e750d3a5ae1c!8m2!3d45.8525762!4d9.4012985!15sCgZiYWRvbmmSAQtoaWdoX3NjaG9vbOABAA!16s%2Fg%2F1tjz6tq4?hl=it&entry=ttu">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              <span>
-                Location
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-phone" aria-hidden="true"></i>
-              <span>
-                Call +39 3476993854
-              </span>
-            </a>
-            <a href="">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-              <span>
-                info@marvelsnaplist.com
-              </span>
-            </a>
-          </div>
-        </div>
-        <div class="info_social">
-          <a href="https://www.facebook.com/?locale=it_IT">
-            <i class="fa fa-facebook" aria-hidden="true"></i>
-          </a>
-          <a href="https://twitter.com/?lang=it">
-            <i class="fa fa-twitter" aria-hidden="true"></i>
-          </a>
-          <a href="https://it.linkedin.com/">
-            <i class="fa fa-linkedin" aria-hidden="true"></i>
-          </a>
-          <a href="https://www.instagram.com/">
-            <i class="fa fa-instagram" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3 info_col">
-        <div class="info_detail" style="text-align: justify;">
-          <h4>
-            Informazioni
-          </h4>
-          <p >
-            Marvel Snap List è il tuo portale definitivo per esplorare, scoprire e dominare il gioco di carte collezionabili più dinamico e visivamente strabiliante del mondo Marvel
-          </p>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-2 mx-auto info_col">
-        <div class="info_link_box">
-          <h4>
-            Links
-          </h4>
-          <div class="info_links">
-            <a class="active" href="index.html">
-              Home
-            </a>
-            <a class="" href="deck.html">
-              Deck Builder
-            </a>
-            <a class="" href="cards.html">
-              Card List
-            </a>
-            <a class="" href="shop.html">
-              Variant Shop
-            </a>
-            <a class="" href="team.html">
-              Team
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3 info_col ">
-        <h4>
-          Iscriviti
-        </h4>
-        <form action="#">
-          <input type="text" placeholder="Enter email" />
-          <button type="submit">
-            Subscribe
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- footer section -->
-<section class="footer_section">
-  <div class="container">
-    <p>
-      &copy; <span id="displayYear"></span> All Rights Reserved By Marvel Snap List </a>
-    </p>
-  </div>
-</section>
-<!-- footer section -->
-
-<!-- jQery -->
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- popper js -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-</script>
-<!-- bootstrap js -->
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<!-- owl slider -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-</script>
-<!-- custom js -->
-<script type="text/javascript" src="js/custom.js"></script>
-<!-- Google Map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-</script>
-<!-- End Google Map -->
-
-</body>
-
-</html> 
+    </body>
+  </html>
