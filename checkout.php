@@ -23,9 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Insert the order details into the database
 
-    $caca = json_encode($cart);
-    //print($caca);
-
     $sql = "INSERT INTO orders (order_details, total) VALUES ('" . json_encode($cart) . "', '$total')";
 
     if ($conn->query($sql) === TRUE) {
