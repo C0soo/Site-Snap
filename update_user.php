@@ -9,7 +9,7 @@ if (!isset($_SESSION['nome'])) {
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "database";
+$dbname = "marvel";
 
 // Crea la connessione
 $conn = new MySQLi($servername, $username, $password, $dbname);
@@ -26,14 +26,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     // Ottieni i dati dal modulo
     $nome = $_POST['nome'];
     $cognome = $_POST['cognome'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $telefono = $_POST['telefono'];
 
     // Prepara e esegui la query di aggiornamento
-    $sql = "UPDATE utenti SET nome=?, cognome=?, password=?, email=?, telefono=? WHERE nome=?";
+    $sql = "UPDATE utenti SET nome=?, cognome=?, username=?, password=?, email=?, telefono=? WHERE nome=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssss", $nome, $cognome, $password, $email, $telefono, $_SESSION['nome']);
+    $stmt->bind_param("sssssss", $nome, $cognome, $username, $password, $email, $telefono, $_SESSION['nome']);
     
     if ($stmt->execute()) {
         $msg = "Dati aggiornati con successo!";

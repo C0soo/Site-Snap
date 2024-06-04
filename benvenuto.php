@@ -93,6 +93,10 @@
                                     <input type="text" id="cognome" name="cognome" class="form-control" value="<?php echo htmlspecialchars($user['cognome']); ?>" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="username">Username:</label>
+                                    <input type="text" id="username" name="username" class="form-control" value="<?php echo htmlspecialchars($user['username']); ?>" required>
+                                </div>
+                                <div class="form-group">
                                     <label for="password">Password:</label>
                                     <input type="password" id="password" name="password" class="form-control" value="<?php echo htmlspecialchars($user['password']); ?>" required>
                                 </div>

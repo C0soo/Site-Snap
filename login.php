@@ -5,7 +5,7 @@ session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "database";
+$dbname = "marvel";
 
 // Crea la connessione
 $conn = new MySQLi($servername, $username, $password, $dbname);
