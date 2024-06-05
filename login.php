@@ -8,7 +8,7 @@ $password = "";
 $dbname = "marvel";
 
 // Crea la connessione
-$conn = new MySQLi($servername, $username, $password, $dbname);
+$conn = new MySQLi($servername, $username, $password, $dbname); 
 
 // Controlla la connessione
 if ($conn->connect_error) {

@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['nome'])) {
     header("Location: login.html");
     exit();
-}
+} 
 
 // Parametri di connessione al database
 $servername = "localhost";
